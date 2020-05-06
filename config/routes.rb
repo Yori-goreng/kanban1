@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
   root 'top#index'
+  devise_for :users
 
   get 'list/new'
   post 'list/create'
-  resources :list, only: %i(new create)
+  resources :top, only: %i(index)
+  resources :list, only: %i(new create edit update destroy) do
+    resources :card, expect: %i(index)
+  end
 end
